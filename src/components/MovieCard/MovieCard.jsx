@@ -1,12 +1,18 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./MovieCard.scss";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function MovieCard(props) {
   const { data } = props;
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   return (
-    <div className="card-item">
+    <div className="card-item" data-aos="zoom-in">
       <Link to={`/movie/${data.imdbID}`}>
         <div className="card-inner">
           <div className="card-top">

@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./MovieDetail.scss";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import {
   fetchAsyncMovieOrShowDetail,
   getAllSelectedMoviesOrShow,
@@ -13,7 +15,10 @@ function MovieDetail() {
   const { imdbID } = useParams();
   const dispatch = useDispatch();
   const data = useSelector(getAllSelectedMoviesOrShow);
-
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   useEffect(() => {
     dispatch(fetchAsyncMovieOrShowDetail(imdbID));
     return () => {
@@ -27,7 +32,7 @@ function MovieDetail() {
         <Loader />
       ) : (
         <>
-          <div className="section-left">
+          <div data-aos="zoom-in" className="section-left ">
             <div className="movie-title">{data.Title}</div>
             <div className="movie-rating">
               <span>
@@ -68,7 +73,7 @@ function MovieDetail() {
             </div>
           </div>
           <div className="section-right">
-            <img src={data.Poster} alt={data.Title} />
+            <img data-aos="zoom-in" src={data.Poster} alt={data.Title} />
           </div>
         </>
       )}
