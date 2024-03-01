@@ -8,11 +8,16 @@ import { useDispatch } from "react-redux";
 
 function Home() {
   const dispatch = useDispatch();
+  // const movieText = "Harry";
+  // const showText = "friends";
 
   useEffect(() => {
-    // Fetch movies when component mounts
-    dispatch(fetchAsyncMovies());
-    dispatch(fetchAsyncShows());
+    const params = new URLSearchParams(window.location.search);
+    const movieText = params.get("q") || "Harry";
+    const showText = "friends";
+
+    dispatch(fetchAsyncMovies(movieText));
+    dispatch(fetchAsyncShows(showText));
   }, [dispatch]);
 
   return (
